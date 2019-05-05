@@ -1,0 +1,63 @@
+{% macro normal_event(event, child_care_provided=False) -%}
+  <div>
+    <h3>
+      {{ event.speaker }} -
+      {{ event.local_time }}
+      {% if child_care_provided %}
+        &#128570;
+      {% endif %}
+    </h3>
+    <div>
+      {{ event.topic }}
+    </div>
+  </div>
+{%- endmacro %}
+
+{% macro normal_events(events, ui_block, child_care_provided=False) -%}
+  {%- for event in events -%}
+    {%- if event.ui_block == ui_block -%}
+      {{ normal_event(event, child_care_provided) }}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endmacro %}
+<html>
+  <head>
+      <style>
+        h1 { margin-top: 3em }
+        td { vertical-align: top; border: 1px solid #555; padding: 2em}
+      </style>
+  </head>
+  <body>
+    <div style='width: 80%; margin: auto'>
+      <div>
+        <h1> Friday </h1>
+        {{ normal_events(events, 'Fri1') }}
+        {{ normal_events(events, 'Fri2') }}
+      </div>
+      <div>
+        <h1> Saturday </h1>
+        <div>Childcare provided at all events with &#128570;</div>
+        {{ normal_events(events, 'Sat1', True) }}
+        <table>
+          <tr>
+            <td>
+              <h2>Auditorium</h2>
+              {{ normal_events(events, 'Sat2a', True) }}
+            </td>
+            <td>
+              <h2>Community Room</h2>
+              {{ normal_events(events, 'Sat2b', True) }}
+            </td>
+          </tr>
+        </table>
+        {{ normal_events(events, 'Sat3', True) }}
+        {{ normal_events(events, 'Sat4', True) }}
+        {{ normal_events(events, 'Sat5') }}
+      </div>
+      <div>
+        <h1> Sunday </h1>
+        {{ normal_events(events, 'Sun') }}
+      </div>
+    </div>
+  </body>
+</html>
