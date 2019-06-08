@@ -12,7 +12,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
 # The ID and range of a sample spreadsheet.
 SAMPLE_SPREADSHEET_ID = '1qd_WVEBLxswoRVdTE0hFi2PzhBHIqJLb7D1ViVBFrFI'
-SAMPLE_RANGE_NAME = 'Schedule!A2:H900'
+SAMPLE_RANGE_NAME = 'Schedule!A2:I900'
 
 
 def get_credentials():
@@ -57,9 +57,10 @@ class Event:
         self.day = values[3]
         self.local_time = values[4]
         self.ui_block = values[5]
-        self.speaker = values[6]
-        if len(values) > 7:
-            self.topic = values[7]
+        self.class_identifiers = values[6]
+        self.speaker = values[7]
+        if len(values) > 8:
+            self.topic = values[8]
 
 
 def main():
